@@ -16,11 +16,11 @@ function Citation({ id, stamp, titles }: { id: number; stamp?: string; titles: M
     <Link
       to={to}
       title={title}
-      className="mx-0.5 inline-flex max-w-[16rem] items-center gap-1 rounded-full border border-brand/30 bg-brand-soft px-2 py-px align-baseline text-xs font-medium text-brand-text no-underline transition hover:border-brand"
+      className="mx-0.5 inline-flex max-w-[16rem] items-center gap-1 whitespace-nowrap rounded-full border border-brand/30 bg-brand-soft px-2 py-px align-baseline text-xs font-medium text-brand-text no-underline transition hover:border-brand"
     >
       <FileText className="size-3 shrink-0" aria-hidden />
-      <span className="truncate">{title ? title : `#${id}`}</span>
-      {stamp && <span className="tnum opacity-80">· {stamp}</span>}
+      <span className="min-w-0 truncate">{title ? title : `#${id}`}</span>
+      {stamp && <span className="tnum shrink-0 opacity-80">·&nbsp;{stamp}</span>}
     </Link>
   )
 }
