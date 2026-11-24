@@ -13,6 +13,7 @@ import signal
 import threading
 import time
 
+from . import notify
 from .config import get_settings
 from .db import connect, migrate, now_iso
 from .pipeline import Engines, friendly_error, process, refund, summarize
@@ -54,11 +55,24 @@ def claim_job(db) -> dict | None:
     return dict(r) if r else None
 
 
+def _notify_done(db, rec_id: int, stats: dict | None, error: str | None = None) -> None:
+    try:
+        rec = db.execute("SELECT * FROM recordings WHERE id = ?", (rec_id,)).fetchone()
+        user = db.execute("SELECT * FROM users WHERE id = ?", (rec["user_id"],)).fetchone() if rec else None
+        if rec and user:
+            notify.processed(dict(user), dict(rec), stats, error)
+    except Exception:
+        log.exception("could not build the notification for recording %s", rec_id)
+
+
 def run_job(db, engines: Engines, job: dict) -> None:
     rec_id = job["recording_id"]
     try:
         if job["kind"] == "process":
-            process(db, engines, rec_id)
+            started = time.monotonic()
+            stats = process(db, engines, rec_id)
+            stats["total"] = time.monotonic() - started
+            _notify_done(db, rec_id, stats)
         else:
             summarize(db, rec_id)
             db.execute("UPDATE recordings SET stage = NULL, updated_at = ? WHERE id = ?", (now_iso(), rec_id))
@@ -72,6 +86,7 @@ def run_job(db, engines: Engines, job: dict) -> None:
             db.execute("UPDATE recordings SET status = 'error', stage = NULL, error = ?, updated_at = ? WHERE id = ?",
                        (friendly_error(e), now_iso(), rec_id))
             refund(db, rec_id)
+            _notify_done(db, rec_id, None, error=friendly_error(e))
         else:
             db.execute("UPDATE recordings SET stage = NULL, summary_status = 'error' WHERE id = ?", (rec_id,))
 

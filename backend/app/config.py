@@ -65,6 +65,7 @@ class Settings(BaseSettings):
     notify_headers: str = ""  # JSON object
     notify_body: str = ""  # JSON template, {text} is replaced by the message
     notify_lang: str = "en"
+    notify_transcripts: str = ""  # also send finished transcripts: "" = never, "all", or comma-separated emails
 
     # --- Email (optional, for password reset) ----------------------------
     smtp_host: str = ""

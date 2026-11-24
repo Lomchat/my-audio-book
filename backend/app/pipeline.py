@@ -89,7 +89,8 @@ class _Progress:
                             (stage, round(value, 4), now_iso(), self.rec_id))
 
 
-def process(db: sqlite3.Connection, engines: Engines, rec_id: int) -> None:
+def process(db: sqlite3.Connection, engines: Engines, rec_id: int) -> dict[str, float]:
+    """Runs the whole pipeline; returns timings in seconds (transcription, total)."""
     s = get_settings()
     rec = dict(db.execute("SELECT * FROM recordings WHERE id = ?", (rec_id,)).fetchone())
     original, playback = recording_paths(rec)
@@ -114,8 +115,10 @@ def process(db: sqlite3.Connection, engines: Engines, rec_id: int) -> None:
     db.execute("UPDATE recordings SET language = ? WHERE id = ?", (language, rec_id))
 
     progress.set("transcribing", 0.05, force=True)
+    t0 = time.monotonic()
     segments = engines.stt.transcribe(audio, language, lambda p: progress.set("transcribing", 0.05 + 0.75 * p))
 
+    stt_seconds = time.monotonic() - t0
     num_speakers = 0
     if s.diarization and segments and len(audio) / 16000 >= 5:
         progress.set("diarizing", 0.8, force=True)
@@ -142,6 +145,7 @@ def process(db: sqlite3.Connection, engines: Engines, rec_id: int) -> None:
     db.execute("UPDATE recordings SET status = 'done', stage = NULL, progress = 1, processed_at = ?, updated_at = ? "
                "WHERE id = ?", (now_iso(), now_iso(), rec_id))
     index_recording(db, rec_id)
+    return {"transcription": stt_seconds}
 
 
 def summarize(db: sqlite3.Connection, rec_id: int, progress: _Progress | None = None) -> None:
