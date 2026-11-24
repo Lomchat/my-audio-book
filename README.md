@@ -122,7 +122,7 @@ Both are required to enable the button. See [docs/google-sign-in.md](docs/google
 | `NOTIFY_HEADERS` | empty | Extra headers as JSON, e.g. `{"Authorization": "Bearer xxx"}` |
 | `NOTIFY_BODY` | `{"text": "{text}"}` | JSON body template; `{text}` is replaced by the message |
 | `NOTIFY_LANG` | `en` | Notification language (`en` or `fr`) |
-| `NOTIFY_TRANSCRIPTS` | empty | Also send each finished transcript (or failure), to check quality: empty = never, `all`, or comma-separated emails. The text leaves your server, so disclose it in your privacy policy before enabling it for other people |
+| `NOTIFY_TRANSCRIPTS` | empty | Also send each finished transcript (or failure), to check quality: empty = never, `all`, or comma-separated emails. The text leaves your server: with `all`, the privacy page automatically shows a "review during the beta" notice |
 
 ### Email (optional, password reset)
 

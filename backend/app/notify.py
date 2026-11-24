@@ -10,8 +10,8 @@ Discord webhook, ntfy, n8n... Configure in .env:
     NOTIFY_TRANSCRIPTS=me@example.com                     # also send finished transcripts:
                                                           # "" never, "all", or a list of emails
 
-Sending transcripts lets the operator check transcription quality. Only enable it for other
-people's accounts if your privacy policy says so: their text leaves this server.
+Sending transcripts lets the operator check transcription quality. Their text leaves this server:
+with "all", the privacy page automatically shows a "review during the beta" notice.
 
 Sending happens in a background thread: a slow or failing endpoint never delays a request.
 """

@@ -16,6 +16,7 @@ export interface AppConfig {
   diarization: boolean
   github_url: string
   google_auth?: boolean
+  transcript_review?: boolean
 }
 
 export interface Me {

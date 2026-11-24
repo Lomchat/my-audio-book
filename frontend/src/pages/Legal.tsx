@@ -4,13 +4,14 @@ import { useLang } from '../i18n'
 import type { Lang } from '../lib/types'
 
 type Section = { h: string; p: string }
-type Doc = { title: string; updated: string; sections: Section[]; contact: string }
+type Doc = { title: string; updated: string; sections: Section[]; contact: string; review?: Section }
 
 const PRIVACY: Record<Lang, Doc> = {
   en: {
     title: 'Privacy',
     updated: 'Last updated: November 2026',
     contact: 'Questions? Contact us',
+    review: { h: 'Review during the beta', p: 'During the beta, to check transcription quality, the team receives a copy of each finished transcript (text only, never the audio) through WhatsApp. It is only used to improve the service.' },
     sections: [
       { h: 'What we store', p: 'Your audio files, their transcripts, summaries, tags and categories, and your account details (email, name, password hash). Everything is stored on this server.' },
       { h: 'Where processing happens', p: 'Transcription and speaker detection run on this server. Your audio is never sent to a third-party speech service.' },
@@ -24,6 +25,7 @@ const PRIVACY: Record<Lang, Doc> = {
     title: 'Confidentialité',
     updated: 'Dernière mise à jour : novembre 2026',
     contact: 'Une question ? Contactez-nous',
+    review: { h: 'Relecture pendant la bêta', p: 'Pendant la bêta, pour vérifier la qualité de la transcription, l’équipe reçoit une copie de chaque transcription terminée (le texte seulement, jamais l’audio) par WhatsApp. Elle sert uniquement à améliorer le service.' },
     sections: [
       { h: 'Ce que nous conservons', p: 'Vos fichiers audio, leurs transcriptions, résumés, étiquettes et catégories, et les informations de votre compte (e-mail, nom, empreinte du mot de passe). Tout est stocké sur ce serveur.' },
       { h: 'Où se font les traitements', p: 'La transcription et la détection des intervenants tournent sur ce serveur. Votre audio n’est jamais envoyé à un service vocal tiers.' },
@@ -68,13 +70,15 @@ function LegalPage({ docs }: { docs: Record<Lang, Doc> }) {
   const lang = useLang()
   const config = useConfig().data
   const doc = docs[lang]
+  // The review notice only appears on instances that actually send transcripts to their operator.
+  const sections = doc.review && config?.transcript_review ? [...doc.sections.slice(0, 3), doc.review, ...doc.sections.slice(3)] : doc.sections
   return (
     <DocPage>
       <article>
         <h1 className="text-3xl font-bold tracking-tight">{doc.title}</h1>
         <p className="mt-2 text-sm text-faint">{doc.updated}</p>
         <div className="mt-8 space-y-7">
-          {doc.sections.map((s) => (
+          {sections.map((s) => (
             <section key={s.h}>
               <h2 className="text-lg font-semibold">{s.h}</h2>
               <p className="mt-1.5 leading-relaxed text-muted">{s.p}</p>

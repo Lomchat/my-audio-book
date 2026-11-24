@@ -35,6 +35,7 @@ def public_config():
         "max_audio_minutes": s.max_audio_minutes,
         "password_reset": s.mail_enabled,
         "google_auth": s.google_enabled,
+        "transcript_review": bool(s.notify_url) and s.notify_transcripts.strip().lower() == "all",
         "llm_enabled": s.llm_enabled,
         "diarization": s.diarization,
         "github_url": s.github_url,
