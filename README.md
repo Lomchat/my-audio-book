@@ -1,6 +1,6 @@
 # MyAudioBook
 
-**Record or upload audio, get a transcript, a summary and a chat assistant. Self-hosted, with transcription and speaker detection running on your own CPU.**
+**Talk. It handles the rest.** Transcripts, summaries, to-dos and sorting for your voice notes, in English, French or Hebrew. Self-hosted: transcription runs on your own CPU.
 
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white)](docker-compose.yml)
@@ -15,19 +15,19 @@ English | [Français](README.fr.md)
 | --- | --- |
 | ![Recording](docs/screenshots/recording.png) | ![Mobile](docs/screenshots/mobile.png) |
 
-**Live demo:** https://my-audio-book.chalco.website
+**Live demo:** https://my-audio-book.chalco.workers.dev
 
 ## Features
 
-- **Capture from anywhere**: upload files, record in the browser, install the PWA on your phone, share audio to it from the Android share menu, or send recordings from an iPhone Shortcut using an API token.
-- **Local transcription**: Whisper large-v3-turbo (via faster-whisper) on CPU, with automatic language detection (French, Hebrew and English by default; configurable).
-- **Local speaker detection**: sherpa-onnx with pyannote segmentation 3.0 and WeSpeaker ResNet34 embeddings tells speakers apart.
-- **AI notes**: an LLM writes a title, summary, key points and action items, picks a category and adds tags. Any OpenAI-compatible API works (OpenRouter by default, Ollama for a fully local setup).
-- **Library**: browse, sort, filter by category and tag, and full-text search (SQLite FTS5).
-- **Chat with your recordings**: streamed answers with citations.
-- **Accounts**: email and password, optional Google sign-in, password reset by email (optional SMTP), a free quota of audio minutes per account, a daily AI limit. Every account gets the same interface; the server operator manages quotas from the command line.
-- **Your data is yours**: API tokens, full data export and account deletion.
-- **Single SQLite database**, one Docker image for the web server and the worker. No GPU required.
+- **Capture**: upload, record in the browser, share from your phone (Android share menu, iPhone Shortcut).
+- **Local transcription**: Whisper large-v3-turbo on CPU, language detected automatically (French, Hebrew, English by default).
+- **Who spoke when**: local speaker detection (sherpa-onnx, pyannote 3.0, WeSpeaker).
+- **Notes**: title, summary, key points, to-dos, category and tags, written by any OpenAI-compatible LLM (OpenRouter by default, Ollama for fully local).
+- **Library**: filters, categories, tags, full-text search.
+- **Ask your recordings**: answers with links to the exact moment.
+- **Accounts**: email or Google sign-in, free minutes per account, quotas managed from the command line. Same interface for everyone.
+- **Your data**: API tokens, full export, account deletion.
+- **Simple to run**: one SQLite file, one Docker image, no GPU.
 
 ## Quick start (Docker Compose)
 

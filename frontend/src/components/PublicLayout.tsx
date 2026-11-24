@@ -24,9 +24,9 @@ export function LangToggle() {
 export function Brand({ to = '/' }: { to?: string }) {
   const config = useConfig().data
   return (
-    <Link to={to} className="flex items-center gap-2.5 font-semibold tracking-tight">
+    <Link to={to} className="flex items-center gap-2.5 tracking-tight">
       <Logo size={30} />
-      {config?.app_name ?? 'MyAudioBook'}
+      <span className="font-display text-lg font-extrabold text-brand-text">{config?.app_name ?? 'MyAudioBook'}</span>
     </Link>
   )
 }

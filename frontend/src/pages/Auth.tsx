@@ -16,7 +16,6 @@ function safeNext(raw: string | null): string {
 function AuthLayout({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   return (
     <div className="relative flex min-h-dvh flex-col items-center px-4 pt-safe pb-safe">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80 bg-[radial-gradient(ellipse_at_top,rgb(99_102_241/0.18),transparent_70%)]" />
       <div className="flex w-full max-w-md items-center justify-between py-4">
         <Brand />
         <LangToggle />

@@ -1,49 +1,52 @@
 @import 'tailwindcss';
 
-
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* "Méditerranée" theme: sand surfaces, deep navy ink, coral accent, teal / olive / honey secondaries. */
 :root {
-  --bg: #fafafa;
+  --bg: #fbf6ec;
   --surface: #ffffff;
-  --subtle: #f4f4f5;
-  --line: #e4e4e7;
-  --fg: #18181b;
-  --muted: #52525b;
-  --faint: #71717a;
-  --brand-text: #4f46e5;
-  --brand-soft: #eef2ff;
-  --danger: #dc2626;
-  --danger-soft: #fef2f2;
-  --ok: #16a34a;
-  --ok-soft: #f0fdf4;
-  --warn: #b45309;
-  --warn-soft: #fffbeb;
-  --shadow: 0 1px 2px rgb(24 24 27 / 0.04), 0 4px 16px -4px rgb(24 24 27 / 0.08);
-  --shadow-lg: 0 8px 40px -8px rgb(24 24 27 / 0.25);
+  --subtle: #f5ecda;
+  --line: #eadfc9;
+  --fg: #14284b;
+  --muted: #55627a;
+  --faint: #5f6982;
+  --brand-text: #b23a1a;
+  --brand-soft: #fce8dc;
+  --brand-press: #8f2e12;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --ok: #4d5c16;
+  --ok-soft: #eef0dc;
+  --warn: #8f5b0e;
+  --warn-soft: #f8ecd4;
+  --shadow: 0 2px 0 #e6d8bb;
+  --shadow-lg: 0 16px 40px -12px rgb(20 40 75 / 0.28);
 }
 .dark {
-  --bg: #09090b;
-  --surface: #131316;
-  --subtle: #1d1d21;
-  --line: #27272a;
-  --fg: #fafafa;
-  --muted: #a1a1aa;
-  --faint: #8b8b95;
-  --brand-text: #a5b4fc;
-  --brand-soft: #1e1b4b;
-  --danger: #f87171;
-  --danger-soft: #2a1215;
-  --ok: #4ade80;
-  --ok-soft: #0f2418;
-  --warn: #fbbf24;
-  --warn-soft: #2a1f0a;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 16px -4px rgb(0 0 0 / 0.5);
-  --shadow-lg: 0 8px 40px -8px rgb(0 0 0 / 0.7);
+  --bg: #0e1a30;
+  --surface: #15233f;
+  --subtle: #1c2d4f;
+  --line: #263a5f;
+  --fg: #f6efe2;
+  --muted: #b5bfd3;
+  --faint: #8e9ab3;
+  --brand-text: #f0845e;
+  --brand-soft: #3a2119;
+  --brand-press: #6e230d;
+  --danger: #f2877a;
+  --danger-soft: #3a1a17;
+  --ok: #a9bc5a;
+  --ok-soft: #232b12;
+  --warn: #e0a54a;
+  --warn-soft: #33260f;
+  --shadow: 0 2px 0 #0a1324;
+  --shadow-lg: 0 16px 40px -12px rgb(0 0 0 / 0.7);
 }
 
 @theme inline {
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'DM Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Manrope Variable', 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-subtle: var(--subtle);
@@ -51,8 +54,12 @@
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
-  --color-brand: #6366f1;
-  --color-brand-2: #8b5cf6;
+  --color-brand: #c7421f;
+  --color-brand-2: #1f6f78;
+  --color-brand-press: var(--brand-press);
+  --color-teal: #1f6f78;
+  --color-olive: #5c6b1f;
+  --color-honey: #8f5b0e;
   --color-brand-text: var(--brand-text);
   --color-brand-soft: var(--brand-soft);
   --color-danger: var(--danger);
@@ -87,7 +94,6 @@ html {
   color: var(--fg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-  font-feature-settings: 'cv11', 'ss03';
 }
 body {
   margin: 0;
@@ -97,17 +103,17 @@ body {
 button, [role='button'], a, summary { touch-action: manipulation; }
 /* In the base layer so utilities such as focus:outline-none can override it. */
 @layer base {
-  :focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+  :focus-visible { outline: 2px solid #c7421f; outline-offset: 2px; }
+  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
 }
-::selection { background: rgb(99 102 241 / 0.25); }
+::selection { background: rgb(199 66 31 / 0.22); }
 .tnum { font-variant-numeric: tabular-nums; }
-.bg-brand-gradient { background-image: linear-gradient(135deg, #6366f1, #8b5cf6); }
-.text-brand-gradient {
-  background-image: linear-gradient(135deg, #6366f1, #a855f7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+/* Historical names kept: the brand is now a flat coral, no gradients. */
+.bg-brand-gradient { background-color: #c7421f; }
+.text-brand-gradient { color: var(--brand-text); }
+/* Tactile "pressable" look for primary actions. */
+.press { box-shadow: 0 3px 0 var(--brand-press); }
+.press:active { box-shadow: 0 1px 0 var(--brand-press); transform: translateY(2px); }
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 .pt-safe { padding-top: env(safe-area-inset-top); }
 .skeleton {
@@ -127,7 +133,7 @@ button, [role='button'], a, summary { touch-action: manipulation; }
   }
 }
 
-/* Seek bar: native range input, filled with the brand gradient up to --p. */
+/* Seek bar: native range input, filled with the brand color up to --p. */
 .seek {
   -webkit-appearance: none;
   appearance: none;
@@ -140,28 +146,28 @@ button, [role='button'], a, summary { touch-action: manipulation; }
 .seek::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6) 0 / var(--p) 100% no-repeat, var(--line);
+  background: linear-gradient(90deg, #c7421f, #c7421f) 0 / var(--p) 100% no-repeat, var(--line);
 }
 .seek::-moz-range-track {
   height: 6px;
   border-radius: 999px;
   background: var(--line);
 }
-.seek::-moz-range-progress { height: 6px; border-radius: 999px; background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+.seek::-moz-range-progress { height: 6px; border-radius: 999px; background: #c7421f; }
 .seek::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 18px; height: 18px; margin-top: -6px;
-  border-radius: 50%; background: #fff; border: 2px solid #6366f1;
+  border-radius: 50%; background: #fff; border: 2px solid #c7421f;
   box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
 }
-.seek::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid #6366f1; }
+.seek::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid #c7421f; }
 
 /* Speaker label colors (AA on both themes). */
 :root {
-  --sp1: #4338ca; --sp2: #0f766e; --sp3: #b45309; --sp4: #be185d;
-  --sp5: #0369a1; --sp6: #6d28d9; --sp7: #b91c1c; --sp8: #4d7c0f;
+  --sp1: #b23a1a; --sp2: #1f6f78; --sp3: #8f5b0e; --sp4: #5c6b1f;
+  --sp5: #2f5d8a; --sp6: #9c2f52; --sp7: #14284b; --sp8: #7a5a2e;
 }
 .dark {
-  --sp1: #a5b4fc; --sp2: #5eead4; --sp3: #fcd34d; --sp4: #f9a8d4;
-  --sp5: #7dd3fc; --sp6: #c4b5fd; --sp7: #fca5a5; --sp8: #bef264;
+  --sp1: #f0845e; --sp2: #5fc1c9; --sp3: #e0a54a; --sp4: #a9bc5a;
+  --sp5: #8fb8e6; --sp6: #ec8fae; --sp7: #f6efe2; --sp8: #d8b07a;
 }

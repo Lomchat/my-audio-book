@@ -1,4 +1,4 @@
-# MyAudioBook — `docker compose up -d`, then open http://localhost:8000
+# MyAudioBook: `docker compose up -d`, then open http://localhost:8000
 # The first start downloads the speech models (~1.7 GB) into the data volume.
 
 x-app: &app

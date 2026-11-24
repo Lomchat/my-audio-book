@@ -1,6 +1,6 @@
 # MyAudioBook
 
-**Enregistrez ou importez de l'audio, obtenez la transcription, un résumé et un assistant de discussion. Auto-hébergé : la transcription et la détection des locuteurs tournent sur votre propre processeur.**
+**Parlez. On s'occupe du reste.** Transcription, résumé, tâches et classement de vos notes vocales, en français, hébreu ou anglais. Auto-hébergé : la transcription tourne sur votre propre processeur.
 
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
@@ -8,17 +8,17 @@
 
 ![Bibliothèque](docs/screenshots/library.png)
 
-**Démo en ligne :** https://my-audio-book.chalco.website
+**Démo en ligne :** https://my-audio-book.chalco.workers.dev
 
 ## Fonctionnalités
 
-- Import de fichiers, enregistrement dans le navigateur, application web installable (PWA), partage depuis le menu Android, Raccourci iPhone via un jeton d'API.
-- Transcription locale avec Whisper large-v3-turbo (faster-whisper), sur CPU, langue détectée automatiquement (français, hébreu, anglais par défaut).
-- Détection locale des locuteurs (sherpa-onnx : pyannote segmentation 3.0 et WeSpeaker ResNet34).
-- Notes générées par un LLM : titre, résumé, points clés, actions à mener, catégorie et étiquettes. Toute API compatible OpenAI convient (OpenRouter par défaut, Ollama pour un fonctionnement 100 % local).
-- Bibliothèque avec tri, filtres et recherche plein texte (SQLite FTS5).
-- Discussion avec vos enregistrements : réponses en flux, avec citations.
-- Comptes (email et mot de passe, connexion Google en option), quota gratuit de minutes audio, limite quotidienne d'IA, jetons d'API, export complet des données, suppression du compte.
+- Import, enregistrement dans le navigateur, partage depuis le téléphone (menu Android, Raccourci iPhone).
+- Transcription locale (Whisper large-v3-turbo, sur CPU), langue détectée automatiquement.
+- Qui parle, quand : détection locale des intervenants.
+- Titre, résumé, points clés, tâches, catégorie et étiquettes, par n'importe quel LLM compatible OpenAI (OpenRouter par défaut, Ollama en 100 % local).
+- Bibliothèque : filtres, catégories, étiquettes, recherche plein texte.
+- Questions sur vos audios, avec liens vers le moment exact.
+- Comptes email ou Google, minutes offertes, jetons d'API, export complet, suppression du compte.
 
 ## Démarrage rapide (Docker Compose)
 

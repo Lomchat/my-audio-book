@@ -12,7 +12,8 @@ import {
   RefreshCw,
   RotateCcw,
   ScrollText,
-  Sparkles,
+  AudioLines,
+  FileText,
   Star,
   Trash2,
   Users,
@@ -92,7 +93,7 @@ function ProcessingView({ rec }: { rec: RecordingDetail }) {
   return (
     <Card className="mx-auto mt-6 max-w-xl space-y-6 p-6 text-center sm:p-8">
       <div className="bg-brand-gradient mx-auto flex size-16 animate-pulse items-center justify-center rounded-2xl text-white">
-        <Sparkles className="size-8" aria-hidden />
+        <AudioLines className="size-8" aria-hidden />
       </div>
       <div>
         <h2 className="text-lg font-semibold">{rec.status === 'queued' ? t('status.queued') : t('proc.title')}</h2>
@@ -248,7 +249,7 @@ export function RecordingPage() {
   })
 
   const tabs = [
-    { id: 'summary' as const, label: t('tab.summary'), icon: <Sparkles className="size-4" /> },
+    { id: 'summary' as const, label: t('tab.summary'), icon: <FileText className="size-4" /> },
     { id: 'transcript' as const, label: t('tab.transcript'), icon: <ScrollText className="size-4" /> },
     { id: 'ask' as const, label: t('tab.ask'), icon: <MessageSquare className="size-4" /> },
   ]

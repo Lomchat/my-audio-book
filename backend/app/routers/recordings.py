@@ -322,7 +322,8 @@ def audio(rec_id: int, user: dict = Depends(current_user), db: sqlite3.Connectio
     rec = _get_owned(db, rec_id, user)
     original, playback = recording_paths(rec)
     if playback.exists():
-        return FileResponse(playback, media_type="audio/mp4", headers={"Cache-Control": "private, max-age=86400"})
+        # no-cache: the browser revalidates (ETag), so access is re-checked on every play.
+        return FileResponse(playback, media_type="audio/mp4", headers={"Cache-Control": "private, no-cache"})
     if original.exists():  # not converted yet: the browser may still be able to play the original
         return FileResponse(original, media_type=rec["mime"] or "application/octet-stream")
     raise HTTPException(404, detail={"code": "not_found"})
@@ -397,7 +398,7 @@ def render_export(rec: dict, fmt: str, category: str | None) -> str:
         out += [""] + [f"• {p}" for p in key_points]
     if actions:
         out += [""] + [f"☐ {a}" for a in actions]
-    out += ["", "—" * 20, ""] + lines_tr
+    out += ["", "-" * 20, ""] + lines_tr
     return "\n".join(out) + "\n"
 
 

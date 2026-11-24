@@ -9,7 +9,7 @@ type Size = 'sm' | 'md' | 'lg'
 const base =
   'relative inline-flex select-none items-center justify-center gap-2 rounded-xl font-medium whitespace-nowrap transition duration-150 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50'
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-gradient text-white shadow-card hover:brightness-110',
+  primary: 'press bg-brand text-white hover:brightness-110',
   secondary: 'border border-line bg-surface text-fg shadow-card hover:bg-subtle',
   ghost: 'text-muted hover:bg-subtle hover:text-fg',
   danger: 'bg-danger-soft text-danger border border-danger/30 hover:border-danger/60',

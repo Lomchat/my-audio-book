@@ -13,8 +13,8 @@ import { ConfirmDialog, Sheet } from '../components/ui/Sheet'
 import { useToast } from '../components/ui/Toast'
 
 export const PALETTE = [
-  '#6366f1', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#ec4899',
-  '#8b5cf6', '#14b8a6', '#f97316', '#84cc16', '#06b6d4', '#a855f7',
+  '#1f6f78', '#c7421f', '#8f5b0e', '#5c6b1f', '#2f5d8a', '#9c2f52',
+  '#2e7d6b', '#b87700', '#a8432a', '#4f7a28', '#3d6a9e', '#7a5a2e',
 ]
 
 export function Categories() {

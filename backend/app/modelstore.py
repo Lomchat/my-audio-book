@@ -2,9 +2,9 @@
 
     python -m app.modelstore          # download everything (idempotent)
 
-- Whisper (faster-whisper / CTranslate2 format) from Hugging Face — MIT license.
-- Speaker segmentation: pyannote segmentation 3.0, ONNX export by sherpa-onnx — MIT license.
-- Speaker embeddings: WeSpeaker ResNet34 (VoxCeleb), ONNX export by sherpa-onnx — Apache-2.0.
+- Whisper (faster-whisper / CTranslate2 format) from Hugging Face (MIT license).
+- Speaker segmentation: pyannote segmentation 3.0, ONNX export by sherpa-onnx (MIT license).
+- Speaker embeddings: WeSpeaker ResNet34 (VoxCeleb), ONNX export by sherpa-onnx (Apache-2.0).
 """
 
 from __future__ import annotations

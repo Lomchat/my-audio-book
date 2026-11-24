@@ -125,8 +125,8 @@ export function Record() {
       if (!ctx) return
       ctx.clearRect(0, 0, w, h)
       const grad = ctx.createLinearGradient(0, 0, w, 0)
-      grad.addColorStop(0, '#6366f1')
-      grad.addColorStop(1, '#a855f7')
+      grad.addColorStop(0, '#1f6f78')
+      grad.addColorStop(1, '#1f6f78')
       ctx.fillStyle = grad
       const slot = w / HISTORY
       const bar = Math.max(2 * dpr, slot * 0.6)

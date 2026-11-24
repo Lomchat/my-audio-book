@@ -1,11 +1,11 @@
 /* MyAudioBook service worker: share target + minimal offline app shell. No API caching. */
-const SHELL_CACHE = 'mab-shell-v1'
+const SHELL_CACHE = 'mab-shell-v2'
 const ASSET_CACHE = 'mab-assets-v1'
 const SHARED_CACHE = 'shared-files'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(SHELL_CACHE).then((c) => c.addAll(['/index.html', '/icon.svg'])).then(() => self.skipWaiting()),
+    caches.open(SHELL_CACHE).then((c) => c.addAll(['/index.html', '/icon.svg?v=2'])).then(() => self.skipWaiting()),
   )
 })
 

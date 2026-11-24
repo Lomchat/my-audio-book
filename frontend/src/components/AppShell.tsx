@@ -10,7 +10,8 @@ import {
   Plus,
   Search,
   Settings,
-  Sparkles,
+  Hourglass,
+  MessagesSquare,
   Star,
   Upload,
   WifiOff,
@@ -71,7 +72,7 @@ function ShellLayout() {
         <Banner icon={<WifiOff className="size-4" />} text={t('worker.offline')} />
       )}
       {worker?.online && worker.state === 'loading' && (
-        <Banner icon={<Sparkles className="size-4" />} text={t('worker.loading')} />
+        <Banner icon={<Hourglass className="size-4" />} text={t('worker.loading')} />
       )}
       <main
         className={cn(
@@ -171,7 +172,7 @@ function Sidebar({ onNew }: { onNew: () => void }) {
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-line bg-surface lg:flex">
       <div className="flex items-center gap-2.5 px-5 pt-5 pb-4">
         <Logo size={30} />
-        <span className="font-semibold tracking-tight">{config?.app_name ?? 'MyAudioBook'}</span>
+        <span className="font-display text-lg font-extrabold tracking-tight text-brand-text">{config?.app_name ?? 'MyAudioBook'}</span>
       </div>
       <div className="px-3 pb-3">
         <Button className="w-full" icon={<Plus className="size-4" />} onClick={onNew}>
@@ -244,7 +245,7 @@ function Sidebar({ onNew }: { onNew: () => void }) {
             {t('nav.search')}
           </NavLink>
           <NavLink to="/app/chat" className={({ isActive }) => sideLink(isActive)}>
-            <Sparkles className="size-4" aria-hidden />
+            <MessagesSquare className="size-4" aria-hidden />
             {t('nav.chat')}
           </NavLink>
           <NavLink to="/app/settings" className={({ isActive }) => sideLink(isActive)}>
@@ -294,7 +295,7 @@ function MobileTopBar() {
       <div className="flex h-14 items-center justify-between px-4">
         <NavLink to="/app" className="flex items-center gap-2.5">
           <Logo size={28} />
-          <span className="font-semibold tracking-tight">{config?.app_name ?? 'MyAudioBook'}</span>
+          <span className="font-display text-lg font-extrabold tracking-tight text-brand-text">{config?.app_name ?? 'MyAudioBook'}</span>
         </NavLink>
         <button
           type="button"
@@ -341,7 +342,7 @@ function TabBar({ onNew }: { onNew: () => void }) {
           </button>
         </div>
         <NavLink to="/app/chat" className={tab}>
-          <Sparkles className="size-6" aria-hidden />
+          <MessagesSquare className="size-6" aria-hidden />
           {t('nav.chatShort')}
         </NavLink>
         <NavLink to="/app/settings" className={tab}>

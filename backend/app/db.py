@@ -15,7 +15,7 @@ from typing import Any
 from .config import get_settings
 
 MIGRATIONS: list[str] = [
-    # v1 — initial schema
+    # v1: initial schema
     """
     CREATE TABLE users (
         id INTEGER PRIMARY KEY,

@@ -38,7 +38,7 @@ export function ProgressBar({
           'bg-brand-gradient h-full rounded-full transition-[width] duration-500',
           indeterminate && 'w-1/3 animate-pulse',
           animated &&
-            'bg-[length:28px_28px] [background-image:repeating-linear-gradient(135deg,rgb(255_255_255/.22)_0_8px,transparent_8px_16px),linear-gradient(135deg,#6366f1,#8b5cf6)] animate-stripes',
+            'bg-[length:28px_28px] [background-image:repeating-linear-gradient(135deg,rgb(255_255_255/.22)_0_8px,transparent_8px_16px),linear-gradient(#c7421f,#c7421f)] animate-stripes',
         )}
         style={indeterminate ? undefined : { width: `${Math.max(pct, 3)}%` }}
       />
@@ -107,7 +107,7 @@ export function EmptyState({
   )
 }
 
-const AVATAR_COLORS = ['#6366f1', '#0ea5e9', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#14b8a6']
+const AVATAR_COLORS = ['#c7421f', '#1f6f78', '#8f5b0e', '#5c6b1f', '#2f5d8a', '#9c2f52', '#14284b']
 
 export function Avatar({ name, size = 32 }: { name: string; size?: number }) {
   const initial = (name.trim()[0] ?? '?').toUpperCase()
@@ -124,7 +124,7 @@ export function Avatar({ name, size = 32 }: { name: string; size?: number }) {
 }
 
 export function Logo({ size = 28 }: { size?: number }) {
-  return <img src="/icon.svg" width={size} height={size} alt="" className="shrink-0 rounded-[22%]" />
+  return <img src="/icon.svg?v=2" width={size} height={size} alt="" className="shrink-0 rounded-[22%]" />
 }
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {

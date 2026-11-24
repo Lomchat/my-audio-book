@@ -9,10 +9,10 @@ import {
   Mic,
   Search,
   Share2,
-  Sparkles,
+  AudioLines,
   Tags,
   Users,
-  Wand2,
+  Cog,
   Languages,
 } from 'lucide-react'
 import { useConfig, useMe } from '../lib/queries'
@@ -116,14 +116,13 @@ export function Landing() {
       </header>
 
       <section className="relative px-5 pt-16 pb-20 text-center sm:pt-24">
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,rgb(99_102_241/0.22),transparent)]" />
         <p className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted shadow-card">
-          <Sparkles className="size-3.5 text-brand-text" aria-hidden />
+          <AudioLines className="size-3.5 text-brand-text" aria-hidden />
           {t('landing.badge')}
         </p>
         <h1 className="mx-auto max-w-3xl text-4xl leading-[1.08] font-bold tracking-tight text-balance sm:text-6xl">
           <span className="text-brand-gradient">{name}</span>
-          <span className="sr-only"> – </span>
+          <span className="sr-only">. </span>
           <br />
           {t('landing.tagline')}
         </h1>
@@ -165,7 +164,7 @@ export function Landing() {
         <ol className="mt-10 grid gap-4 md:grid-cols-3">
           {[
             { icon: Mic, k: 1 },
-            { icon: Wand2, k: 2 },
+            { icon: Cog, k: 2 },
             { icon: MessageSquareText, k: 3 },
           ].map(({ icon: Icon, k }) => (
             <li key={k} className="relative rounded-2xl border border-line bg-surface p-6 shadow-card">

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUp, Sparkles, Square, Trash2 } from 'lucide-react'
+import { ArrowUp, AudioLines, MessagesSquare, Square, Trash2 } from 'lucide-react'
 import { ApiError, streamChat } from '../lib/api'
 import { useConfig } from '../lib/queries'
 import type { ChatMessage } from '../lib/types'
@@ -126,7 +126,7 @@ export function ChatPanel({
       {messages.length === 0 ? (
         <div className="animate-fade py-8 text-center">
           <div className="bg-brand-gradient mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl text-white shadow-card">
-            <Sparkles className="size-7" aria-hidden />
+            <MessagesSquare className="size-7" aria-hidden />
           </div>
           <h2 className="text-lg font-semibold tracking-tight">
             {recordingId ? t('chat.recordingTitle') : t('chat.title')}
@@ -159,7 +159,7 @@ export function ChatPanel({
             ) : (
               <div key={i} className="flex gap-3">
                 <span className="bg-brand-gradient mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full text-white">
-                  <Sparkles className="size-3.5" aria-hidden />
+                  <AudioLines className="size-3.5" aria-hidden />
                 </span>
                 <div className="min-w-0 flex-1 text-[15px]">
                   {m.content ? (
