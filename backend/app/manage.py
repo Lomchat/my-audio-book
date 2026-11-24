@@ -7,6 +7,7 @@ interface; the person running the server manages quotas here.
     python -m app.manage quota EMAIL default     back to FREE_QUOTA_MINUTES
     python -m app.manage disable EMAIL           block an account (signs it out everywhere)
     python -m app.manage enable EMAIL
+    python -m app.manage delete EMAIL            delete an account and all its recordings (asks to confirm)
     python -m app.manage stats                   instance totals, queue and worker state
 
 With Docker:  docker compose exec web python -m app.manage users
@@ -14,8 +15,10 @@ With Docker:  docker compose exec web python -m app.manage users
 
 from __future__ import annotations
 
+import shutil
 import sys
 
+from .config import get_settings
 from .db import connect, migrate
 from .routers.meta import worker_status
 from .security import quota_seconds
@@ -50,6 +53,14 @@ def set_quota(db, email: str, value: str) -> str:
     return f"{user['email']}: quota {_minutes(quota_seconds(user))}, used {user['used_seconds'] / 60:.1f} min"
 
 
+def delete_user(db, user: dict) -> None:
+    for r in db.execute("SELECT id FROM recordings WHERE user_id = ?", (user["id"],)).fetchall():
+        db.execute("DELETE FROM recordings_fts WHERE rowid = ?", (r["id"],))
+    db.execute("DELETE FROM chunks_fts WHERE user_id = ?", (user["id"],))
+    db.execute("DELETE FROM users WHERE id = ?", (user["id"],))  # cascades to recordings, sessions, tokens...
+    shutil.rmtree(get_settings().audio_dir / str(user["id"]), ignore_errors=True)
+
+
 def main(argv: list[str]) -> None:
     if not argv or argv[0] in ("-h", "--help", "help"):
         print(__doc__)
@@ -76,6 +87,12 @@ def main(argv: list[str]) -> None:
         if cmd == "disable":
             db.execute("DELETE FROM sessions WHERE user_id = ?", (user["id"],))
         print(f"{user['email']}: {cmd}d")
+    elif cmd == "delete" and len(args) in (1, 2):
+        user = _user(db, args[0])
+        if "--yes" not in args and input(f"Delete {user['email']} and all its recordings? [y/N] ").lower() != "y":
+            sys.exit("Cancelled")
+        delete_user(db, user)
+        print(f"{user['email']}: deleted")
     elif cmd == "stats":
         u = db.execute("SELECT COUNT(*) FROM users").fetchone()[0]
         r = db.execute("SELECT COUNT(*), COALESCE(SUM(duration), 0), SUM(status = 'error') FROM recordings").fetchone()

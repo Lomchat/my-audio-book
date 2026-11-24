@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Upload
 from fastapi.responses import FileResponse, PlainTextResponse, Response
 from pydantic import BaseModel, Field
 
+from .. import notify
 from ..audio import AudioError, probe_duration
 from ..config import get_settings
 from ..db import get_db, jdump, jload, now_iso
@@ -128,6 +129,8 @@ def upload(
     db.execute("UPDATE recordings SET status = 'queued', size_bytes = ?, duration = ? WHERE id = ?",
                (size, duration, rec_id))
     db.execute("INSERT INTO jobs(recording_id, kind, created_at) VALUES (?, 'process', ?)", (rec_id, now_iso()))
+    used = db.execute("SELECT used_seconds FROM users WHERE id = ?", (user["id"],)).fetchone()[0]
+    notify.recording(user, original_name, duration, source, used, quota)
     return _list_item(db.execute(f"SELECT {LIST_FIELDS} FROM recordings WHERE id = ?", (rec_id,)).fetchone())
 
 

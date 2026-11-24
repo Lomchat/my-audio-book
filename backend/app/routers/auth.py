@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response
 from pydantic import BaseModel, Field
 
-from .. import mailer
+from .. import mailer, notify
 from ..config import get_settings
 from ..db import get_db, now_iso
 from ..security import (
@@ -58,6 +58,7 @@ def signup(body: SignupIn, request: Request, response: Response, db: sqlite3.Con
         (email, body.name.strip(), hash_password(body.password), body.ui_lang, now_iso()),
     )
     create_session(db, response, cur.lastrowid, request.headers.get("user-agent"))
+    notify.signup(body.name, email, False, db.execute("SELECT COUNT(*) FROM users").fetchone()[0])
     return {"ok": True}
 
 

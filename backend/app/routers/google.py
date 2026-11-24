@@ -16,6 +16,7 @@ import httpx
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import RedirectResponse
 
+from .. import notify
 from ..config import get_settings
 from ..db import get_db, now_iso
 from ..security import create_session, hash_password, request_origin
@@ -129,6 +130,7 @@ def callback(request: Request, code: str | None = None, state: str | None = None
              now_iso()),
         )
         user = db.execute("SELECT * FROM users WHERE id = ?", (cur.lastrowid,)).fetchone()
+        notify.signup(user["name"], email, True, db.execute("SELECT COUNT(*) FROM users").fetchone()[0])
     if user["is_disabled"]:
         return _fail("account_disabled")
 

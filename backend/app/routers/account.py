@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import io
-import shutil
 import sqlite3
 import zipfile
 
@@ -87,12 +86,8 @@ def delete_account(body: DeleteIn, user: dict = Depends(current_user), db: sqlit
             raise HTTPException(400, detail={"code": "wrong_password"})
     elif body.confirm != "DELETE":
         raise HTTPException(400, detail={"code": "confirmation_required"})
-    ids = [r["id"] for r in db.execute("SELECT id FROM recordings WHERE user_id = ?", (user["id"],))]
-    for rid in ids:
-        db.execute("DELETE FROM recordings_fts WHERE rowid = ?", (rid,))
-    db.execute("DELETE FROM chunks_fts WHERE user_id = ?", (user["id"],))
-    db.execute("DELETE FROM users WHERE id = ?", (user["id"],))  # cascades to everything else
-    shutil.rmtree(get_settings().audio_dir / str(user["id"]), ignore_errors=True)
+    from ..manage import delete_user
+    delete_user(db, user)
     resp = Response(status_code=204)
     resp.delete_cookie(SESSION_COOKIE, path="/")
     return resp

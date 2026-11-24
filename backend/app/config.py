@@ -60,6 +60,12 @@ class Settings(BaseSettings):
     llm_reasoning_effort: str = ""  # OpenRouter only: low|medium|high, empty = provider default
     llm_timeout: float = 180
 
+    # --- Owner notifications (optional, see app/notify.py) ------------------
+    notify_url: str = ""
+    notify_headers: str = ""  # JSON object
+    notify_body: str = ""  # JSON template, {text} is replaced by the message
+    notify_lang: str = "en"
+
     # --- Email (optional, for password reset) ----------------------------
     smtp_host: str = ""
     smtp_port: int = 587

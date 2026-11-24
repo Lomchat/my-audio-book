@@ -114,6 +114,15 @@ Both are required to enable the button. See [docs/google-sign-in.md](docs/google
 | `DIARIZATION_THRESHOLD` | `0.5` | Higher means fewer speakers (more merging) |
 | `DIARIZATION_THREADS` | `4` | CPU threads for diarization |
 
+### Owner notifications (optional)
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `NOTIFY_URL` | empty | Owner notifications: JSON POST on each sign-up and new recording (bot, Slack/Discord webhook, ntfy…) |
+| `NOTIFY_HEADERS` | empty | Extra headers as JSON, e.g. `{"Authorization": "Bearer xxx"}` |
+| `NOTIFY_BODY` | `{"text": "{text}"}` | JSON body template; `{text}` is replaced by the message |
+| `NOTIFY_LANG` | `en` | Notification language (`en` or `fr`) |
+
 ### Email (optional, password reset)
 
 | Variable | Default | Description |
@@ -143,6 +152,7 @@ docker compose exec web python -m app.manage quota EMAIL 120         # lifetime 
 docker compose exec web python -m app.manage quota EMAIL unlimited   # no audio or AI limit
 docker compose exec web python -m app.manage quota EMAIL default     # back to FREE_QUOTA_MINUTES
 docker compose exec web python -m app.manage disable EMAIL           # block (signs out everywhere); `enable` to undo
+docker compose exec web python -m app.manage delete EMAIL            # delete an account and its recordings
 docker compose exec web python -m app.manage stats                   # totals, queue, worker state
 ```
 
