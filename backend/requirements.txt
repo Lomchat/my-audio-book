@@ -1,0 +1,13 @@
+# Web API
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.34
+pydantic-settings==2.16.3
+argon2-cffi==25.1.0
+httpx==0.28.1
+
+# Speech: transcription (Whisper via CTranslate2) and speaker diarization (ONNX)
+faster-whisper==1.2.1
+sherpa-onnx==2.0.3
+huggingface_hub==2.4.0
+numpy==2.5.5

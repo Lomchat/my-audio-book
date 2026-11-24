@@ -1,0 +1,21 @@
+MyAudioBook
+Copyright 2026 The MyAudioBook contributors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product downloads and uses the following third-party models and libraries.
+They are not part of this repository and remain under their own licenses.
+
+Models (downloaded at first start):
+
+- Whisper large-v3-turbo, by OpenAI (MIT License), in the CTranslate2 format
+  converted by Mobius Labs (mobiuslabsgmbh/faster-whisper-large-v3-turbo).
+- pyannote segmentation 3.0 (MIT License), ONNX export distributed by the
+  sherpa-onnx project.
+- WeSpeaker ResNet34 speaker embeddings (Apache License 2.0), ONNX export
+  distributed by the sherpa-onnx project.
+
+Libraries:
+
+- faster-whisper (MIT License)
+- sherpa-onnx (Apache License 2.0)
